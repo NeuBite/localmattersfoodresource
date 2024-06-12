@@ -15,7 +15,7 @@
 <div id="map"></div>
 <script>
   // Replace 'YOUR_MAPBOX_ACCESS_TOKEN' with your actual Mapbox access token
-  mapboxgl.accessToken = pk.eyJ1IjoibG9jYWxtYXR0ZXJzbWFwcyIsImEiOiJjbHhieHppN2Exem5oMmpvajE5eWZpdHRnIn0.Bv3yM4xMWS5AK9u7ZS-XXg;
+  mapboxgl.accessToken = 'pk.eyJ1IjoibG9jYWxtYXR0ZXJzbWFwcyIsImEiOiJjbHhieHppN2Exem5oMmpvajE5eWZpdHRnIn0.Bv3yM4xMWS5AK9u7ZS-XXg';
 
   // Initialize the Mapbox map
   var map = new mapboxgl.Map({
@@ -30,71 +30,6 @@
     // Replace 'YOUR_BASE_ID' with your actual Airtable base ID
     // Replace 'YOUR_TABLE_NAME' with your actual Airtable table name
     // Replace 'YOUR_API_KEY' with your actual Airtable API key
-    const response = await fetch('https://api.airtable.com/v0/appvBETj09TSQUHvN/LocalMatters Food Resource Map?api_key=patIh5niDvaVMq9Qn.1e7cbd2473d432bb99dcafde5363d18c208299145270e212511d0a747091bef4');
+    const response = await fetch('https://api.airtable.com/v0/appvBETj09TSQUHvN/LocalMatters%20Food%20Resource%20Map?api_key=patIh5niDvaVMq9Qn.1e7cbd2473d432bb99dcafde5363d18c208299145270e212511d0a747091bef4');
     const data = await response.json();
-    return data.records.map(record => {
-      return {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [record.fields.Longitude, record.fields.Latitude] // Adjust according to your data
-        },
-        properties: {
-          name: record.fields.Name,
-          hours: record.fields.OpeningHours,
-          hotLunch: record.fields.HotLunch,
-          idRequired: record.fields.IDRequired,
-          website: record.fields.Website
-        }
-      };
-    });
-  }
-
-  // Convert data to GeoJSON format
-  async function addDataToMap() {
-    const features = await fetchData();
-    const geojson = {
-      type: 'FeatureCollection',
-      features: features
-    };
-
-    // Add GeoJSON data to the map
-    map.on('load', function () {
-      map.addSource('foodPantries', {
-        type: 'geojson',
-        data: geojson
-      });
-
-      map.addLayer({
-        id: 'pantries',
-        type: 'circle',
-        source: 'foodPantries',
-        paint: {
-          'circle-radius': 6,
-          'circle-color': '#B42222'
-        }
-      });
-
-      // Add a popup when a feature is clicked
-      map.on('click', 'pantries', function (e) {
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        const description = `
-          <strong>${e.features[0].properties.name}</strong><br>
-          Hours: ${e.features[0].properties.hours}<br>
-          Hot Lunch: ${e.features[0].properties.hotLunch ? 'Yes' : 'No'}<br>
-          ID Required: ${e.features[0].properties.idRequired ? 'Yes' : 'No'}<br>
-          <a href="${e.features[0].properties.website}" target="_blank">Website</a>
-        `;
-
-        new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML(description)
-          .addTo(map);
-      });
-
-      // Change the cursor to a pointer when the mouse is over the pantries layer
-      map.on('mouseenter', 'pantries', function () {
-        map.getCanvas().style.cursor = 'pointer';
-      });
-
-      // Change 
+    r
